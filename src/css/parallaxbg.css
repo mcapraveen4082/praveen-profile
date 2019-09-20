@@ -1,0 +1,60 @@
+
+.parallex-effects{
+    position: relative;
+    width: 100%;
+    color: #0b2e13;
+}
+.sticky, .sticky2, .sticky3
+{
+    position: sticky;
+    position: -webkit-sticky;
+    top: 200px;
+    font: 75px 'Abril Fatface', sans-serif;
+    /*color: #fff;*/
+    text-align: center;
+}
+.block-1, .block-3
+{
+    height: 900px;
+    padding: 70px 20px;
+    background-size: cover;
+    background-image: url('/images/Wallpapers/white-pen-isolated-white-writing-paper-background_1372-14.jpg');
+    box-sizing: border-box;
+    background-position: center;
+    background-color: #00d6b2;
+    color: #000;
+}
+.block-2
+{
+    background: url('/images/Wallpapers/big-ideas-diary-with-pen-white-background_23-2147865351.jpg') no-repeat fixed;
+    background-size: cover;
+    height: 900px;
+    background-position: center;
+    background-color: #2b5763;
+    color: #000;
+}
+.block-3
+{
+    background-color: #5a6268;
+    color: #fff;;
+    background-image: url('/images/Wallpapers/stack-books-black-background_23-2147846050.jpg');
+}
+
+.content-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: -webkit-fill-available;
+}
+.profile-image{
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    float: right;
+}
+
+@media screen and (min-width: 200px) and (max-width: 768px) {
+    .sticky, .sticky2, .sticky3{
+        font-size: 32px;
+    }
+}
