@@ -58,7 +58,7 @@ class GithubProfile extends Component{
                                  <Row>
                                      <Col id="user-details-wrapper" sm={12} md={3} lg={3}>
                                          <div className="user-img">
-                                             <img src={this.props.user_bio.avatar_url} />
+                                             <img src={this.props.user_bio.avatar_url} alt="img2" />
                                          </div>
                                          <h4>{this.props.user_bio.name}</h4>
                                          <p className="user-login">{this.props.user_bio.login}</p>

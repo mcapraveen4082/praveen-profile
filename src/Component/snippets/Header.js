@@ -1,5 +1,6 @@
+/* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
-import {Nav, Navbar, NavDropdown, Form, FormControl, Button} from 'react-bootstrap';
+import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 
 
 class Header extends Component{

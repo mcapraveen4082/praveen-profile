@@ -1,5 +1,6 @@
+/* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
-import {Nav, Navbar, NavDropdown, Form, FormControl, Button} from 'react-bootstrap';
+// import {Nav, Navbar, NavDropdown, Form, FormControl, Button} from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -11,10 +12,6 @@ class ParallaxEffect extends Component{
         super();
     }
 
-    componentDidMount(){
-
-    }
-
     render(){
         return (
             <div className="parallex-effects">
@@ -22,10 +19,10 @@ class ParallaxEffect extends Component{
                     <div className="sticky">
                         <Row className="content-wrap">
                             <Col md={6}>
-                                <img className="profile-image" src="images/Wallpapers/P_praveen(72 KB).JPG" />
+                                <img className="profile-image" alt="img1" src="images/Wallpapers/P_praveen(72 KB).JPG" />
                             </Col>
                             <Col md={6}>
-                                <a text="path.to.string" href="a's href"/>
+                                {/* <a text="path.to.string" href="a's href"/> */}
                                <p>I'm Praveen Kumar</p>
                                <p>Software Engineer</p>
                             </Col>

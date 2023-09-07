@@ -1,12 +1,9 @@
+/* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import ParallaxEffect from './Component/ParallaxEffect';
 import './App.css';
 
 
-import { connect } from 'react-redux';
 
 
 class App extends Component{

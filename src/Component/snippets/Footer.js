@@ -1,5 +1,6 @@
+/* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
-import {Nav, Navbar, NavDropdown, Form, FormControl, Button} from 'react-bootstrap';
+import {Nav} from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
