@@ -19,12 +19,9 @@ class Header extends Component{
                           <Nav.Link href="/">Home</Nav.Link>
                           <Nav.Link href="/githubprofile">Github Profile</Nav.Link>
                           <Nav.Link href="/contactus">Contact</Nav.Link>
-                          <NavDropdown title="Nothing" id="basic-nav-dropdown">
-                              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                              <NavDropdown.Divider />
-                              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                          <NavDropdown title="Companies" id="basic-nav-dropdown">
+                              <NavDropdown.Item href="/company/vyapar">Simply Vyapar Apps Pvt Ltd</NavDropdown.Item>
+                              <NavDropdown.Item href="/company/licious">Licious</NavDropdown.Item>
                           </NavDropdown>
                       </Nav>
                   </Navbar.Collapse>

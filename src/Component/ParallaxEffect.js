@@ -23,17 +23,26 @@ class ParallaxEffect extends Component{
                             </Col>
                             <Col md={6}>
                                 {/* <a text="path.to.string" href="a's href"/> */}
-                               <p>I'm Praveen Kumar</p>
-                               <p>Software Engineer</p>
+                               <p>Praveen Kumar</p>
+                               <p>(Senior Software Engineer)</p>
                             </Col>
                         </Row>
                     </div>
                 </div>
                 <div className="block-2">
-                    <div className="sticky2">Praveen Kumar Here</div>
+                    <div className="sticky2">
+                        <p className='profile-desc'>
+                            A person who can develop both client and server software. In addition to mastering HTML and CSS, 
+                            I also know how to: Program a browser (like using <b>JavaScript, jQuery, ReactJs, or NextJs</b>) Program a server (like using <b>PHP Laravel, Node, or NestJs</b>)
+                        </p>
+                    </div>
                 </div>
                 <div className="block-3">
-                    <div className="sticky3">Lobortis & nostrud</div>
+                    <div className="sticky3">
+                        <p className='tech-skills'>
+
+                        </p>
+                    </div>
                 </div>
             </div>
         );

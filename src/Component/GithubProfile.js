@@ -67,11 +67,11 @@ class GithubProfile extends Component{
                                          <hr />
                                          <div className="del">
                                              <i className="fa fa-users" aria-hidden="true"></i>
-                                             <span className="user-company">{this.props.user_bio.company}</span>
+                                             <span className="user-company">{this.props.user_bio.company} NA</span>
                                          </div>
                                          <div className="del">
                                              <i className="fa fa-map-marker" aria-hidden="true"></i>
-                                             <span className="user-location">{this.props.user_bio.location}</span>
+                                             <span className="user-location">{this.props.user_bio.location} 16/A Sai Nidhi Residency, Hosapalya</span>
                                          </div>
                                          <div className="del">
                                              <i className="fa fa-envelope-o" aria-hidden="true"></i>
@@ -91,7 +91,7 @@ class GithubProfile extends Component{
                                              <Col sm={12} md={5} lg={5}>
                                                  <input type="text" className="search-repo" onChange={this.handleChange} placeholder="Search Repositories..." />
                                              </Col>
-                                             <Col sm={12} md={2} lg={2}>
+                                             {/* <Col sm={12} md={2} lg={2}>
                                                  <select>
                                                      <option value="all">Type:&nbsp; All</option>
                                                      <option value="Option 1">Option 1</option>
@@ -106,7 +106,7 @@ class GithubProfile extends Component{
                                                      <option value="Language 2">Language 2</option>
                                                      <option value="Language 3">Language 3</option>
                                                  </select>
-                                             </Col>
+                                             </Col> */}
                                              <Col sm={12} md={2} lg={2}>
                                                  <button className="new-add"><i className="fa fa-book" aria-hidden="true"></i>&nbsp; New</button>
                                              </Col>

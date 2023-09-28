@@ -15,6 +15,7 @@ import store from "./store/index";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import { createBrowserHistory } from 'history';
+import PageNotFound from './Component/snippets/PageNotFound';
 
 const history = createBrowserHistory();
 // import * as serviceWorker from './serviceWorker';
@@ -33,6 +34,8 @@ ReactDOM.render(<Provider store={store}>
             <Route exact path="/" component={App} />
             <Route exact path="/contactus" component={Contact} />
             <Route exact path="/githubprofile" component={GithubProfile} />
+            {/* 👇️ only match this when no other routes match */}
+            <Route path="*" element={<PageNotFound />} />
             <Footer />
         </Router>
     </Provider>,
