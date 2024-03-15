@@ -12,7 +12,7 @@ class Vyapar extends Component{
             <div class="card">
                 <h2><strong>Industry: </strong> Vyapar App</h2>
                 <p><strong>Technologies Used:</strong> React.js, Nest.js, Next.js, Laravel, HTML, CSS</p>
-                <p><strong>Features Developed:</strong></p>
+                <p><strong>Features Developed:-</strong></p>
                 <ul>
                      <li>
                         <b>Calling Support Internal Dashboard: </b>  

@@ -12,7 +12,7 @@ class Licious extends Component{
             <div class="card">
                 <h2><strong>Industry: </strong> Licious</h2>
                 <p><strong>Technologies Used:</strong> React.js, Javascript, Laravel, HTML, CSS</p>
-                <p><strong>Features Developed:</strong></p>
+                <p><strong>Features Developed:-</strong></p>
                 <ul>
                     <li>
                         <b>Product Listing Page: </b>  
