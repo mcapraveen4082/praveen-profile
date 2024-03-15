@@ -71,6 +71,7 @@
 .tech-skills{
     font-size: 22px;
     width: 70%;
+    text-align: left;
 }
 
 @media screen and (min-width: 200px) and (max-width: 768px) {

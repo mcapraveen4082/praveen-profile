@@ -91,22 +91,7 @@ class GithubProfile extends Component{
                                              <Col sm={12} md={5} lg={5}>
                                                  <input type="text" className="search-repo" onChange={this.handleChange} placeholder="Search Repositories..." />
                                              </Col>
-                                             {/* <Col sm={12} md={2} lg={2}>
-                                                 <select>
-                                                     <option value="all">Type:&nbsp; All</option>
-                                                     <option value="Option 1">Option 1</option>
-                                                     <option value="Option 2">Option 2</option>
-                                                     <option value="Option 3">Option 3</option>
-                                                 </select>
-                                             </Col>
-                                             <Col sm={12} md={3} lg={3}>
-                                                 <select>
-                                                     <option value="all">Languages:&nbsp; All</option>
-                                                     <option value="Language 1">Language 1</option>
-                                                     <option value="Language 2">Language 2</option>
-                                                     <option value="Language 3">Language 3</option>
-                                                 </select>
-                                             </Col> */}
+                                             
                                              <Col sm={12} md={2} lg={2}>
                                                  <button className="new-add"><i className="fa fa-book" aria-hidden="true"></i>&nbsp; New</button>
                                              </Col>

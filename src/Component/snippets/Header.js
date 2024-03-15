@@ -12,7 +12,7 @@ class Header extends Component{
         return (
           <div className="Head-section-main">
               <Navbar bg="light" expand="lg">
-                  <Navbar.Brand href="#home">Praveen@info</Navbar.Brand>
+                  <Navbar.Brand href="/">Praveen@info</Navbar.Brand>
                   <Navbar.Toggle aria-controls="basic-navbar-nav" />
                   <Navbar.Collapse id="basic-navbar-nav">
                       <Nav className="mr-auto">
