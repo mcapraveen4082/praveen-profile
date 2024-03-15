@@ -40,11 +40,11 @@ class ParallaxEffect extends Component{
                     <div className="sticky3">
                         <p className='tech-skills'>
                             <ul>
-                                <li><b>Frontend Development:</b> Proficient in building responsive and dynamic user interfaces using React.js. Experienced in state management with Redux and context API.</li>
-                                <li><b>Backend Development:</b> Skilled in building RESTful APIs and microservices using Nest.js. Familiar with database management systems like PostgreSQL and MySQL.</li>
-                                <li><b>Full Stack Development:</b> Experienced in integrating frontend and backend systems to create full-stack applications. Proficient in using technologies like Laravel for backend development.</li>
-                                <li><b>Cloud Computing:</b> Experienced in deploying applications to AWS (Amazon Web Services) using services like EC2, RDS, S3, IAM, and CloudWatch.</li>
-                                <li><b>Web Technologies:</b> Proficient in HTML, CSS, and JavaScript. Familiar with modern CSS frameworks like Bootstrap and Tailwind CSS.</li>
+                                <li><b>Frontend Development:</b> Proficient in building responsive and dynamic user interfaces using React.js. Experienced in state management with Redux and context API.</li><br/>
+                                <li><b>Backend Development:</b> Skilled in building RESTful APIs and microservices using Nest.js. Familiar with database management systems like PostgreSQL and MySQL.</li><br/>
+                                <li><b>Full Stack Development:</b> Experienced in integrating frontend and backend systems to create full-stack applications. Proficient in using technologies like Laravel for backend development.</li><br/>
+                                <li><b>Cloud Computing:</b> Experienced in deploying applications to AWS (Amazon Web Services) using services like EC2, RDS, S3, IAM, and CloudWatch.</li><br/>
+                                <li><b>Web Technologies:</b> Proficient in HTML, CSS, and JavaScript. Familiar with modern CSS frameworks like Bootstrap and Tailwind CSS.</li><br/>
                             </ul>       
                         </p>
                     </div>

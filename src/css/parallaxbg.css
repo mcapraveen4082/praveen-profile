@@ -51,6 +51,9 @@
     background-color: #5a6268;
     color: #fff;;
     background-image: url('/images/Wallpapers/stack-books-black-background_23-2147846050.jpg');
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 .content-wrap{
@@ -64,6 +67,10 @@
     height: 400px;
     border-radius: 50%;
     float: right;
+}
+.tech-skills{
+    font-size: 22px;
+    width: 70%;
 }
 
 @media screen and (min-width: 200px) and (max-width: 768px) {
