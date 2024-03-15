@@ -32,15 +32,20 @@ class ParallaxEffect extends Component{
                 <div className="block-2">
                     <div className="sticky2">
                         <p className='profile-desc'>
-                            A person who can develop both client and server software. In addition to mastering HTML and CSS, 
-                            I also know how to: Program a browser (like using <b>JavaScript, jQuery, ReactJs, or NextJs</b>) Program a server (like using <b>PHP Laravel, Node, or NestJs</b>)
+                            I am a senior software engineer with a passion for building scalable and robust web applications. With over 6+ years of experience, I have a strong foundation in frontend and backend technologies, including <b>React.js, Nest.js, JavaScript, Laravel, HTML, and CSS</b>.
                         </p>
                     </div>
                 </div>
                 <div className="block-3">
                     <div className="sticky3">
                         <p className='tech-skills'>
-
+                            <ul>
+                                <li><b>Frontend Development:</b> Proficient in building responsive and dynamic user interfaces using React.js. Experienced in state management with Redux and context API.</li>
+                                <li><b>Backend Development:</b> Skilled in building RESTful APIs and microservices using Nest.js. Familiar with database management systems like PostgreSQL and MySQL.</li>
+                                <li><b>Full Stack Development:</b> Experienced in integrating frontend and backend systems to create full-stack applications. Proficient in using technologies like Laravel for backend development.</li>
+                                <li><b>Cloud Computing:</b> Experienced in deploying applications to AWS (Amazon Web Services) using services like EC2, RDS, S3, IAM, and CloudWatch.</li>
+                                <li><b>Web Technologies:</b> Proficient in HTML, CSS, and JavaScript. Familiar with modern CSS frameworks like Bootstrap and Tailwind CSS.</li>
+                            </ul>       
                         </p>
                     </div>
                 </div>
