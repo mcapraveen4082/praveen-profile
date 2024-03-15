@@ -17,8 +17,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { createBrowserHistory } from 'history';
 import PageNotFound from './Component/snippets/PageNotFound';
 
-import LiciousComponent from './Component/company/Licious';
-import VyaparComponent from './Component/company/Vyapar';
+import Licious from './Component/company/Licious';
+import Vyapar from './Component/company/Vyapar';
 
 const history = createBrowserHistory();
 // import * as serviceWorker from './serviceWorker';
@@ -37,8 +37,8 @@ ReactDOM.render(<Provider store={store}>
             <Route exact path="/" component={App} />
             <Route exact path="/contactus" component={Contact} />
             <Route exact path="/githubprofile" component={GithubProfile} />
-            <Route exact path="/company/vyapar" component={VyaparComponent} />
-            <Route exact path="/company/licious" component={LiciousComponent} />
+            <Route exact path="/company/vyapar" component={Vyapar} />
+            <Route exact path="/company/licious" component={Licious} />
             {/* 👇️ only match this when no other routes match */}
             <Route path="*" element={<PageNotFound />} />
             <Footer />
