@@ -31,7 +31,7 @@
     height: 900px;
     padding: 70px 20px;
     background-size: cover;
-    background-image: url('/images/Wallpapers/white-pen-isolated-white-writing-paper-background_1372-14.jpg');
+    background: url('../../public/images/Wallpapers/white-pen-isolated-white-writing-paper-background_1372-14.jpg');
     box-sizing: border-box;
     background-position: center;
     background-color: #00d6b2;
@@ -39,7 +39,7 @@
 }
 .block-2
 {
-    background: url('/images/Wallpapers/big-ideas-diary-with-pen-white-background_23-2147865351.jpg') no-repeat fixed;
+    background: url('../../public/images/Wallpapers/big-ideas-diary-with-pen-white-background_23-2147865351.jpg') no-repeat fixed;
     background-size: cover;
     height: 900px;
     background-position: center;
@@ -50,7 +50,7 @@
 {
     background-color: #5a6268;
     color: #fff;;
-    background-image: url('/images/Wallpapers/stack-books-black-background_23-2147846050.jpg');
+    background: url('../../public/images/Wallpapers/stack-books-black-background_23-2147846050.jpg');
     align-items: center;
     justify-content: center;
     display: flex;

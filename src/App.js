@@ -1,7 +1,8 @@
 /* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
-import ParallaxEffect from './Component/ParallaxEffect';
+// import ParallaxEffect from './Component/ParallaxEffect';
 import './App.css';
+import Portfolio from './Component/PortFolio';
 
 
 
@@ -14,7 +15,8 @@ class App extends Component{
   render(){
     return (
         <div className="App">
-            <ParallaxEffect />
+          <Portfolio/>
+            {/* <ParallaxEffect /> */}
         </div>
     );
   }
