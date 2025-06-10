@@ -3,13 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
 import '../css/portfolio.css';
 
-const frameworkSkills = ['ReactJs', 'Node.js', 'NextJs', 'NestJs', 'Laravel'];
-const languageSkills = ['JavaScript','PHP'];
+const frameworkSkills = ['ReactJs', 'Node.js', 'NextJs', 'NestJs'];
+const languageSkills = ['JavaScript'];
 const otherSkills = ['MySql','MongoDb','HTML','CSS','AWS','Docker'];
 const projects = [
   {
     title: 'Simply Vyapar Apps Pvt Ltd',
-    description: 'A responsive website built using React.',
+    description: `Vyapar is a FREE Business Accounting Software built for Indian small businesses to deal with invoicing, inventory, accounting needs, and much more! The goal is to make a businessman's daily routine less tiring and let them focus more on growing their business, less on paperwork.`,
     image: 'images/Wallpapers/abs1.jpg',
   },
   {
@@ -20,13 +20,18 @@ const projects = [
 ];
 
 const Portfolio = () => {
+  const startDate = new Date('2017-09-01');
+  const currentDate = new Date();
+  const yearsOfExperience = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24 * 365));
+  const monthsOfExperience = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24 * 30)%12);
+
   return (
     <div className="portfolio">
       <div className="bg-image"></div>
       <header className="text-center my-5">
         <img src="images/Wallpapers/P_praveen(72 KB).JPG" alt="Developer" className="profile-image rounded-circle shadow" />
         <h1 className="display-4">Praveen Kumar</h1>
-        <p className="lead">Senior fullstack developer | 7+ Years Experience</p>
+        <p className="lead">Senior fullstack developer | {yearsOfExperience} Years {monthsOfExperience}+ Months Experience</p>
       </header>
 
       <section className="my-5">
