@@ -14,7 +14,7 @@ const projects = [
   },
   {
     title: 'Licious',
-    description: 'A web application utilizing Node.js for backend services.',
+    description: `Licious is a food tech company, founded in 2015 by Abhay Hanjura and Vivek Gupta, that delivers fresh meat and seafood to customers' doorsteps. They focus on quality, hygiene, freshness, and convenience, aiming to disrupt the meat industry with their technology-driven approach and farm-to-fork supply chain.`,
     image: 'images/Wallpapers/abs2.jpg',
   }
 ];
