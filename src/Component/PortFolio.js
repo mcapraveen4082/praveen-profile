@@ -10,12 +10,12 @@ const projects = [
   {
     title: 'Simply Vyapar Apps Pvt Ltd',
     description: `Vyapar is a FREE Business Accounting Software built for Indian small businesses to deal with invoicing, inventory, accounting needs, and much more! The goal is to make a businessman's daily routine less tiring and let them focus more on growing their business, less on paperwork.`,
-    image: 'images/Wallpapers/abs1.jpg',
+    image: 'images/Wallpapers/Vyapar_App_Logo.png',
   },
   {
     title: 'Licious',
     description: `Licious is a food tech company, founded in 2015 by Abhay Hanjura and Vivek Gupta, that delivers fresh meat and seafood to customers' doorsteps. They focus on quality, hygiene, freshness, and convenience, aiming to disrupt the meat industry with their technology-driven approach and farm-to-fork supply chain.`,
-    image: 'images/Wallpapers/abs2.jpg',
+    image: 'images/Wallpapers/Licious-Logo.jpg',
   }
 ];
 
@@ -73,26 +73,30 @@ const Portfolio = () => {
 
       <section className="my-5">
         <h2 className="text-center mb-4">Featured Projects</h2>
-        <div id="projectCarousel" className="carousel slide" data-ride="carousel">
-          <div className="carousel-inner">
-            {projects.map((project, index) => (
-              <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
-                <img src={project.image} className="d-block w-100" alt={project.title} />
-                <div className="carousel-caption d-none d-md-block">
-                  <h5>{project.title}</h5>
-                  <p>{project.description}</p>
+        <div className="carousel-container">
+          <div id="projectCarousel" className="carousel slide" data-ride="carousel">
+            <div className="carousel-inner">
+              {projects.map((project, index) => (
+                <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
+                  <div className="carousel-image-container">
+                    <img src={project.image} className="carousel-image" alt={project.title} />
+                  </div>
+                  <div className="carousel-caption d-none d-md-block">
+                    <h5>{project.title}</h5>
+                    <p>{project.description}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <a className="carousel-control-prev" href="#projectCarousel" role="button" data-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="sr-only">Previous</span>
+            </a>
+            <a className="carousel-control-next" href="#projectCarousel" role="button" data-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="sr-only">Next</span>
+            </a>
           </div>
-          <a className="carousel-control-prev" href="#projectCarousel" role="button" data-slide="prev">
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span className="sr-only">Previous</span>
-          </a>
-          <a className="carousel-control-next" href="#projectCarousel" role="button" data-slide="next">
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-            <span className="sr-only">Next</span>
-          </a>
         </div>
       </section>
 
