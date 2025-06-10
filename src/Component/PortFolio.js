@@ -29,7 +29,7 @@ const Portfolio = () => {
     <div className="portfolio">
       <div className="bg-image"></div>
       <header className="text-center my-5">
-        <img src="images/Wallpapers/P_praveen(72 KB).JPG" alt="Developer" className="profile-image rounded-circle shadow" />
+        <img src="images/Wallpapers/praveen.jpg" alt="Developer" className="profile-image rounded-circle shadow" />
         <h1 className="display-4">Praveen Kumar</h1>
         <p className="lead">Senior fullstack developer | {yearsOfExperience} Years {monthsOfExperience}+ Months Experience</p>
       </header>
