@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
 import '../css/portfolio.css';
@@ -20,10 +20,41 @@ const projects = [
 ];
 
 const Portfolio = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const phoneRef = useRef(null);
+  const emailRef = useRef(null);
+  const messageRef = useRef(null);
   const startDate = new Date('2017-09-01');
   const currentDate = new Date();
   const yearsOfExperience = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24 * 365));
   const monthsOfExperience = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24 * 30)%12);
+
+  const handleSubmit = async (e) => {
+    setIsLoading(true);
+    e.preventDefault();
+    console.log(firstNameRef.current.value, lastNameRef.current.value, phoneRef.current.value, emailRef.current.value, messageRef.current.value);
+    const result = await fetch('http://localhost:5000/api/praveen-profile/send-message', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        firstName: firstNameRef.current.value,
+        lastName: lastNameRef.current.value,
+        phone: phoneRef.current.value,
+        email: emailRef.current.value,
+        message: messageRef.current.value
+      })
+    });
+    if (result.ok) {
+      alert('Message sent successfully');
+    } else {
+      alert('Message not sent');
+    }
+    setIsLoading(false);
+  }
 
   return (
     <div className="portfolio">
@@ -113,19 +144,27 @@ const Portfolio = () => {
         <form>
           <div className="form-row">
             <div className="form-group col-md-6">
-              <label htmlFor="name">Name</label>
-              <input type="text" className="form-control" id="name" placeholder="Your Name" required />
+              <label htmlFor="firstName">First Name</label>
+              <input type="text" ref={firstNameRef} className="form-control" id="firstName" placeholder="Your First Name" required />
+            </div>
+            <div className="form-group col-md-6">
+              <label htmlFor="lastName">Last Name</label>
+              <input type="text" ref={lastNameRef} className="form-control" id="lastName" placeholder="Your Last Name" required />
             </div>
             <div className="form-group col-md-6">
               <label htmlFor="email">Email</label>
-              <input type="email" className="form-control" id="email" placeholder="Your Email" required />
+              <input type="email" ref={emailRef} className="form-control" id="email" placeholder="Your Email" required />
+            </div>
+            <div className="form-group col-md-6">
+              <label htmlFor="phone">Phone Number</label>
+              <input type="phone" ref={phoneRef} className="form-control" id="phone" placeholder="Your phone number" required />
             </div>
           </div>
           <div className="form-group">
             <label htmlFor="message">Message</label>
-            <textarea className="form-control" id="message" rows="4" placeholder="Your Message" required></textarea>
+            <textarea className="form-control" ref={messageRef} id="message" rows="4" placeholder="Your Message" required></textarea>
           </div>
-          <button type="submit" className="btn btn-primary">Send Message</button>
+          <button type="button" onClick={handleSubmit} className="btn btn-primary">Send Message</button>
         </form>
       </section>
     </div>
