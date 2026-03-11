@@ -1,4 +1,4 @@
-name: Deploy to ECS
+name: Deploy React App to ECS
 
 on:
   push:
@@ -17,9 +17,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      # 1️⃣ Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Configure AWS credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -27,27 +29,60 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      # 3️⃣ Install jq for JSON parsing
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      # 4️⃣ Login to ECR
       - name: Login to ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build, tag, and push image
+      # 5️⃣ Build Docker image and push to ECR
+      - name: Build, tag, and push Docker image
         run: |
           IMAGE_TAG=${{ github.sha }}
+          IMAGE_URI=${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
 
+          echo "Building Docker image..."
           docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
 
-          docker tag $ECR_REPOSITORY:$IMAGE_TAG \
-          ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "Tagging image for ECR..."
+          docker tag $ECR_REPOSITORY:$IMAGE_TAG $IMAGE_URI
 
-          docker push \
-          ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "Pushing image to ECR..."
+          docker push $IMAGE_URI
 
-          echo "IMAGE_URI=${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
+      # 6️⃣ Register new ECS task definition with new image
+      - name: Register new ECS task definition
+        run: |
+          IMAGE_URI=$IMAGE_URI
+          
+          echo "Fetching current task definition..."
+          TASK_DEF_JSON=$(aws ecs describe-task-definition \
+            --task-definition $ECS_SERVICE \
+            --query "taskDefinition")
+
+          echo "Updating container image in task definition..."
+          NEW_TASK_DEF=$(echo $TASK_DEF_JSON | jq --arg IMAGE "$IMAGE_URI" \
+            '.containerDefinitions[0].image=$IMAGE | del(.status, .revision, .taskDefinitionArn, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)')
+
+          echo "Registering new task definition revision..."
+          NEW_TASK_ARN=$(aws ecs register-task-definition \
+            --cli-input-json "$NEW_TASK_DEF" \
+            --query 'taskDefinition.taskDefinitionArn' \
+            --output text)
+
+          echo "NEW_TASK_ARN=$NEW_TASK_ARN" >> $GITHUB_ENV
+
+      # 7️⃣ Update ECS service to use new task definition
       - name: Update ECS service
         run: |
+          echo "Updating ECS service to use new task definition..."
           aws ecs update-service \
             --cluster $ECS_CLUSTER \
             --service $ECS_SERVICE \
+            --task-definition $NEW_TASK_ARN \
             --force-new-deployment
