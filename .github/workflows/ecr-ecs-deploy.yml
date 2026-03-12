@@ -1,4 +1,4 @@
-name: Deploy React App to ECS
+name: Deploy to ECS
 
 on:
   push:
@@ -10,6 +10,7 @@ env:
   ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
   ECS_CLUSTER: ${{ secrets.ECS_CLUSTER }}
   ECS_SERVICE: ${{ secrets.ECS_SERVICE }}
+  ECS_TASK_FAMILY: praveen-task-profile
 
 jobs:
   deploy:
@@ -17,11 +18,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout code
-      - name: Checkout code
+      # Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Configure AWS credentials
+      # Configure AWS credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -29,58 +30,63 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      # 3️⃣ Install jq for JSON parsing
+      # Install jq
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      # 4️⃣ Login to ECR
+      # Login to ECR
       - name: Login to ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      # 5️⃣ Build Docker image and push to ECR
-      - name: Build, tag, and push Docker image
+      # Build and push Docker image
+      - name: Build, tag, and push image
+        id: build-image
         run: |
           IMAGE_TAG=${{ github.sha }}
-          IMAGE_URI=${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
+          REGISTRY=${{ steps.login-ecr.outputs.registry }}
+          IMAGE_URI=$REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
           echo "Building Docker image..."
           docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
 
-          echo "Tagging image for ECR..."
+          echo "Tagging image..."
           docker tag $ECR_REPOSITORY:$IMAGE_TAG $IMAGE_URI
 
-          echo "Pushing image to ECR..."
+          echo "Pushing image..."
           docker push $IMAGE_URI
 
           echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
-      # 6️⃣ Register new ECS task definition with new image
-      - name: Register new ECS task definition
+      # Fetch current task definition
+      - name: Fetch current task definition
         run: |
-          IMAGE_URI=$IMAGE_URI
-          
-          echo "Fetching current task definition..."
-          TASK_DEF_JSON=$(aws ecs describe-task-definition \
-            --task-definition $ECS_SERVICE \
-            --query "taskDefinition")
+          aws ecs describe-task-definition \
+            --task-definition $ECS_TASK_FAMILY \
+            --query taskDefinition > task-def.json
 
-          echo "Updating container image in task definition..."
-          NEW_TASK_DEF=$(echo $TASK_DEF_JSON | jq --arg IMAGE "$IMAGE_URI" \
-            '.containerDefinitions[0].image=$IMAGE | del(.status, .revision, .taskDefinitionArn, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)')
+      # Update image in task definition
+      - name: Update task definition image
+        run: |
+          jq --arg IMAGE "$IMAGE_URI" \
+          '.containerDefinitions[0].image=$IMAGE |
+          del(.status,.revision,.taskDefinitionArn,.requiresAttributes,.compatibilities,.registeredAt,.registeredBy)' \
+          task-def.json > new-task-def.json
 
-          echo "Registering new task definition revision..."
+      # Register new task definition
+      - name: Register new task definition
+        id: register-task
+        run: |
           NEW_TASK_ARN=$(aws ecs register-task-definition \
-            --cli-input-json "$NEW_TASK_DEF" \
-            --query 'taskDefinition.taskDefinitionArn' \
+            --cli-input-json file://new-task-def.json \
+            --query "taskDefinition.taskDefinitionArn" \
             --output text)
 
           echo "NEW_TASK_ARN=$NEW_TASK_ARN" >> $GITHUB_ENV
 
-      # 7️⃣ Update ECS service to use new task definition
-      - name: Update ECS service
+      # Update ECS service
+      - name: Deploy to ECS
         run: |
-          echo "Updating ECS service to use new task definition..."
           aws ecs update-service \
             --cluster $ECS_CLUSTER \
             --service $ECS_SERVICE \
