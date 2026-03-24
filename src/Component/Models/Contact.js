@@ -14,12 +14,12 @@ class Contact extends Component{
         return (
             <>
                 <Row className="Contact-section-main">
-                <Col className="wrapper-contact" sm="12" md="4" lg="4">
+                <Col className="wrapper-contact" sm="12" md="8" lg="7">
                     <Row className="contact-head-block">
                         <Col className="contact-head" sm="12" md="12" lg="12">
                             <i className="fa fa-2x fa-address-book addr-icon" aria-hidden="true"></i>
                             <div className="head-section">
-                                <p>Contact Support</p>
+                                <p>Let&apos;s Work Together</p>
                             </div>
 
                         </Col>
@@ -30,8 +30,8 @@ class Contact extends Component{
                                 <i className="fa fa-3x fa-volume-control-phone" aria-hidden="true"></i>
                             </Col>
                             <Col className="contact-type" sm="10" md="10" lg="10">
-                                    <p className="title">Call Now</p>
-                                    <p className="value">8940970374</p>
+                                    <p className="title">Call</p>
+                                    <p className="value">+91 89409 70374</p>
                             </Col>
                         </Row>
                         <Row className="contact-detail-wrapper">
@@ -48,8 +48,21 @@ class Contact extends Component{
                                 <i className="fa fa-3x fa-home" aria-hidden="true"></i>
                             </Col>
                             <Col className="contact-type" sm="10" md="10" lg="10">
-                                <p className="title">Mailing Address</p>
+                                <p className="title">Location</p>
                                 <p className="value">#20, 5th Cross Rd, Kullappa Colony, Jeevan Bhima Nagar, Bengaluru - 560017</p>
+                            </Col>
+                        </Row>
+                        <Row className="contact-detail-wrapper">
+                            <Col className="contact-icon" sm="2" md="2" lg="2">
+                                <i className="fa fa-3x fa-linkedin-square" aria-hidden="true"></i>
+                            </Col>
+                            <Col className="contact-type" sm="10" md="10" lg="10">
+                                <p className="title">LinkedIn</p>
+                                <p className="value">
+                                    <a href="https://www.linkedin.com/in/praveen-kumar-76aaba117" target="_blank" rel="noreferrer">
+                                        View Professional Profile
+                                    </a>
+                                </p>
                             </Col>
                         </Row>
                     </div>

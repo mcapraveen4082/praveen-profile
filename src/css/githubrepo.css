@@ -6,11 +6,15 @@
 .user-img > img{
     width: 100%;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 16px;
+    border: 2px solid #e4ebff;
 }
 #user-details-wrapper{
-    padding: 0 25px;
+    padding: 22px 25px;
     text-align: left;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #ffffff, #f7f9ff);
+    box-shadow: 0 12px 28px rgba(23, 49, 107, 0.12);
 }
 
 .user-login{
@@ -23,9 +27,12 @@
 }
 .click-bio{
     width: 100%;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px 0;
     border: none;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(90deg, #1a66ff, #3250f0);
 }
 .user-company{
     margin-left: 25px;
@@ -49,6 +56,7 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     padding-left: 0;
+    margin-top: 10px;
 }
 .user-repos > .menu-list{
     list-style-type: none;
@@ -63,13 +71,14 @@
 .menu-list.active{
     color: #000000;
     padding: 10px 0;
-    border-bottom: 3px solid orange;
+    border-bottom: 3px solid #3f6af7;
 }
 
 .search-repo{
     width: 100%;
-    padding: 5px;
-    border-radius: 5px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #d4e1ff;
 }
 .user-inputs{
     display: flex;
@@ -90,23 +99,24 @@ select{
 }
 
 .new-add{
-    height: 35px;
+    height: 40px;
     width: 100%;
     color: #ffffff;
-    background-color: #5cf508;
+    background-color: #3761f4;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-weight: bold;
 }
 
 .user-repo-list{
     text-align: left;
     padding: 20px 0;
+    border-bottom: 1px solid #eef2ff;
 }
 .repo-name{
     font-size: 22px;
     font-weight: bold;
-    color: #10089a;
+    color: #183f9a;
     margin: 0;
 }
 
@@ -144,4 +154,50 @@ select{
 .del{
     display: flex;
     margin: 15px 0;
+}
+
+.github-profile-page{
+    padding: 20px 0 40px;
+}
+
+.repo-count{
+    color: #4f6285;
+    font-weight: 600;
+    margin: 6px 0 0 2px;
+}
+
+.loading-state{
+    min-height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #214593;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.github-stats{
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.github-stats > div{
+    border: 1px solid #e6edff;
+    border-radius: 10px;
+    padding: 8px;
+    text-align: center;
+    background: #f7f9ff;
+}
+
+.github-stats strong{
+    display: block;
+    color: #163f9f;
+    font-size: 1.1rem;
+}
+
+.github-stats span{
+    color: #6278a5;
+    font-size: 0.82rem;
 }

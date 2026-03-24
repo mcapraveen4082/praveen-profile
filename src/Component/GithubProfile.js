@@ -33,7 +33,7 @@ class GithubProfile extends Component{
                 this.setState({loading : true,});
                 return json;
             })
-            .catch(error => console.log('Network Issue !'));
+            .catch(() => null);
 
         const data_repo = await fetch('https://api.github.com/users/mcapraveen4082/repos')
             .then(res => res.json())
@@ -41,7 +41,7 @@ class GithubProfile extends Component{
                 this.setState({loading : true,});
                 return json;
             })
-            .catch(error => console.log('Network Issue !'));
+            .catch(() => []);
 
         this.props.getUserGit(data);
         this.props.getRepo(data_repo);
@@ -54,7 +54,7 @@ class GithubProfile extends Component{
                 {
                     (this.state.loading) ?
                          (
-                             <Container>
+                            <Container className="github-profile-page">
                                  <Row>
                                      <Col id="user-details-wrapper" sm={12} md={3} lg={3}>
                                          <div className="user-img">
@@ -63,19 +63,26 @@ class GithubProfile extends Component{
                                          <h4>{this.props.user_bio.name}</h4>
                                          <p className="user-login">{this.props.user_bio.login}</p>
                                          <p className="user-bio">{this.props.user_bio.bio}</p>
-                                         <button className="click-bio">Edit Bio</button>
+                                         <a className="click-bio d-block text-center text-decoration-none" href={this.props.user_bio.html_url} target="_blank" rel="noreferrer">
+                                             Open GitHub Profile
+                                         </a>
                                          <hr />
                                          <div className="del">
                                              <i className="fa fa-users" aria-hidden="true"></i>
-                                             <span className="user-company">{this.props.user_bio.company} NA</span>
+                                             <span className="user-company">{this.props.user_bio.company || 'Company not listed'}</span>
                                          </div>
                                          <div className="del">
                                              <i className="fa fa-map-marker" aria-hidden="true"></i>
-                                             <span className="user-location">{this.props.user_bio.location} 16/A Sai Nidhi Residency, Hosapalya</span>
+                                             <span className="user-location">{this.props.user_bio.location || 'Bengaluru, India'}</span>
                                          </div>
                                          <div className="del">
                                              <i className="fa fa-envelope-o" aria-hidden="true"></i>
                                              <span className="user-mail">mca.praveen4082@gmail.com</span>
+                                         </div>
+                                         <div className="github-stats">
+                                             <div><strong>{this.props.user_bio.public_repos || 0}</strong><span>Repos</span></div>
+                                             <div><strong>{this.props.user_bio.followers || 0}</strong><span>Followers</span></div>
+                                             <div><strong>{this.props.user_bio.following || 0}</strong><span>Following</span></div>
                                          </div>
                                      </Col>
                                      <Col sm={12} md={9} lg={9}>
@@ -93,9 +100,10 @@ class GithubProfile extends Component{
                                              </Col>
                                              
                                              <Col sm={12} md={2} lg={2}>
-                                                 <button className="new-add"><i className="fa fa-book" aria-hidden="true"></i>&nbsp; New</button>
+                                                 <button className="new-add" type="button"><i className="fa fa-book" aria-hidden="true"></i>&nbsp; New</button>
                                              </Col>
                                          </Row>
+                                         <p className="repo-count">Showing {this.state.repos.length} repositories</p>
                                          <hr />
                                          {(this.state.repos).map((repo) => <Repository data={repo} key={repo.id} />)}
 
@@ -103,7 +111,7 @@ class GithubProfile extends Component{
                                  </Row>
                              </Container>
                         ) : (
-                        <div>Page Loading...</div>
+                        <div className="loading-state">Loading GitHub profile...</div>
                     )
 
                 }

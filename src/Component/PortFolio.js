@@ -3,24 +3,45 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
 import '../css/portfolio.css';
 
-const frameworkSkills = ['ReactJs', 'Node.js', 'NextJs', 'NestJs'];
-const languageSkills = ['JavaScript'];
-const otherSkills = ['MySql','MongoDb','HTML','CSS','AWS','Docker'];
+const skillMatrix = [
+  { title: 'Core Languages', skills: ['JavaScript (ES6+)', 'TypeScript', 'SQL', 'HTML5', 'CSS3'] },
+  { title: 'Frontend Engineering', skills: ['React.js', 'Next.js', 'Redux', 'Performance Optimization', 'Accessibility (a11y)'] },
+  { title: 'Backend Engineering', skills: ['Node.js', 'NestJS', 'REST API Design', 'Authentication & Authorization', 'Microservices Basics'] },
+  { title: 'Cloud & DevOps', skills: ['AWS', 'Docker', 'CI/CD Workflows', 'Monitoring & Logging', 'Infrastructure Awareness'] },
+  { title: 'Data & Architecture', skills: ['MongoDB', 'MySQL', 'System Design Thinking', 'Caching Strategies', 'Scalable Backend Patterns'] },
+  { title: 'Senior Engineering Skills', skills: ['Code Reviews', 'Mentoring', 'Cross-functional Collaboration', 'Production Incident Ownership', 'Technical Documentation'] },
+];
+
 const projects = [
   {
     title: 'Simply Vyapar Apps Pvt Ltd',
-    description: `Vyapar is a FREE Business Accounting Software built for Indian small businesses to deal with invoicing, inventory, accounting needs, and much more! The goal is to make a businessman's daily routine less tiring and let them focus more on growing their business, less on paperwork.`,
+    description: "Vyapar is a business accounting platform for small businesses focused on invoicing, inventory, and day-to-day accounting automation.",
     image: 'images/Wallpapers/Vyapar_App_Logo.png',
   },
   {
     title: 'Licious',
-    description: `Licious is a food tech company, founded in 2015 by Abhay Hanjura and Vivek Gupta, that delivers fresh meat and seafood to customers' doorsteps. They focus on quality, hygiene, freshness, and convenience, aiming to disrupt the meat industry with their technology-driven approach and farm-to-fork supply chain.`,
+    description: 'Licious is a food-tech platform delivering fresh meat and seafood through a quality-first, technology-driven supply chain.',
     image: 'images/Wallpapers/Licious-Logo.jpg',
-  }
+  },
+];
+
+const engagementModels = [
+  {
+    title: 'Full-time Engineering',
+    description: 'Drive roadmap delivery with ownership of design, implementation, and production reliability.',
+  },
+  {
+    title: 'Consulting / Architecture',
+    description: 'Improve system quality through architecture reviews, performance tuning, and pragmatic engineering strategy.',
+  },
+  {
+    title: 'Feature Acceleration',
+    description: 'Ship critical features quickly with strong code quality, clear communication, and measurable outcomes.',
+  },
 ];
 
 const Portfolio = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
   const phoneRef = useRef(null);
@@ -29,119 +50,109 @@ const Portfolio = () => {
   const startDate = new Date('2017-09-01');
   const currentDate = new Date();
   const yearsOfExperience = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24 * 365));
-  const monthsOfExperience = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24 * 30)%12);
+  const monthsOfExperience = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24 * 30) % 12);
 
   const handleSubmit = async (e) => {
-    setIsLoading(true);
+    setIsSubmitting(true);
     e.preventDefault();
-    console.log(firstNameRef.current.value, lastNameRef.current.value, phoneRef.current.value, emailRef.current.value, messageRef.current.value);
     const result = await fetch('http://localhost:5000/api/praveen-profile/send-message', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         firstName: firstNameRef.current.value,
         lastName: lastNameRef.current.value,
         phone: phoneRef.current.value,
         email: emailRef.current.value,
-        message: messageRef.current.value
-      })
+        message: messageRef.current.value,
+      }),
     });
+
     if (result.ok) {
       alert('Message sent successfully');
     } else {
       alert('Message not sent');
     }
-    setIsLoading(false);
-  }
+    setIsSubmitting(false);
+  };
 
   return (
     <div className="portfolio">
-      <div className="bg-image"></div>
-      <header className="text-center my-5">
+      <div className="bg-image" />
+
+      <header className="text-center my-5 hero-panel animate__animated animate__fadeIn">
         <img src="images/Wallpapers/praveen.jpg" alt="Developer" className="profile-image rounded-circle shadow" />
-        <h1 className="display-4">Praveen Kumar Verma 123</h1>
-        <p className="lead">Senior fullstack developer | {yearsOfExperience} Years {monthsOfExperience}+ Months Experience...</p>
+        <h1 className="display-4 mb-2">Praveen Kumar</h1>
+        <p className="lead mb-4">
+          Senior Fullstack Engineer | {yearsOfExperience} years {monthsOfExperience}+ months of hands-on experience
+        </p>
+        <div className="hero-highlights">
+          <span>Scalable Web Apps</span>
+          <span>API-first Engineering</span>
+          <span>Cloud-ready Delivery</span>
+        </div>
       </header>
 
-      <section className="my-5">
-        <h2 className="text-center mb-4">Programming Language's</h2>
+      <section className="my-5 section-shell">
+        <h2 className="text-center mb-4">Engineering Skill Matrix</h2>
         <div className="row text-center">
-          {languageSkills.map((skill, index) => (
-            <div className="col-md-4 mb-4" key={index}>
+          {skillMatrix.map((group) => (
+            <div className="col-md-6 col-lg-4 mb-4" key={group.title}>
               <div className="skill-card animate__animated animate__fadeInUp">
-                <h5>{skill}</h5>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="my-5">
-        <h2 className="text-center mb-4">Framework Skills</h2>
-        <div className="row text-center">
-          {frameworkSkills.map((skill, index) => (
-            <div className="col-md-4 mb-4" key={index}>
-              <div className="skill-card animate__animated animate__fadeInUp">
-                <h5>{skill}</h5>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="my-5">
-        <h2 className="text-center mb-4">Other Skills</h2>
-        <div className="row text-center">
-          {otherSkills.map((skill, index) => (
-            <div className="col-md-4 mb-4" key={index}>
-              <div className="skill-card animate__animated animate__fadeInUp">
-                <h5>{skill}</h5>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="my-5">
-        <h2 className="text-center mb-4">Featured Projects</h2>
-        <div className="carousel-container">
-          <div id="projectCarousel" className="carousel slide" data-ride="carousel">
-            <div className="carousel-inner">
-              {projects.map((project, index) => (
-                <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
-                  <div className="carousel-image-container">
-                    <img src={project.image} className="carousel-image" alt={project.title} />
-                  </div>
-                  <div className="carousel-caption d-none d-md-block">
-                    <h5>{project.title}</h5>
-                    <p>{project.description}</p>
-                  </div>
+                <h5>{group.title}</h5>
+                <div className="skill-chip-grid">
+                  {group.skills.map((skill) => (
+                    <span className="skill-chip" key={skill}>{skill}</span>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
-            <a className="carousel-control-prev" href="#projectCarousel" role="button" data-slide="prev">
-              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span className="sr-only">Previous</span>
-            </a>
-            <a className="carousel-control-next" href="#projectCarousel" role="button" data-slide="next">
-              <span className="carousel-control-next-icon" aria-hidden="true"></span>
-              <span className="sr-only">Next</span>
-            </a>
-          </div>
+          ))}
         </div>
       </section>
 
-      <section className="my-5">
+      <section className="my-5 section-shell">
+        <h2 className="text-center mb-4">Featured Work</h2>
+        <div className="project-grid">
+          {projects.map((project) => (
+            <article className="project-card" key={project.title}>
+              <div className="project-image-wrap">
+                <img src={project.image} className="project-image" alt={project.title} />
+              </div>
+              <div className="project-content">
+                <h5>{project.title}</h5>
+                <p>{project.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="my-5 section-shell">
+        <h2 className="text-center mb-4">Engagement Models</h2>
+        <div className="row">
+          {engagementModels.map((model) => (
+            <div className="col-md-4 mb-3" key={model.title}>
+              <div className="model-card">
+                <h5>{model.title}</h5>
+                <p>{model.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="my-5 section-shell">
         <h2 className="text-center mb-4">Connect with Me</h2>
-        <div className="text-center">
+        <div className="text-center social-wrap">
           <a href="https://www.linkedin.com/in/praveen-kumar-76aaba117" className="social-link mx-3">LinkedIn</a>
           <a href="/githubprofile" className="social-link mx-3">GitHub</a>
+          <a href="/contact" className="social-link mx-3">Contact</a>
         </div>
       </section>
 
-      <section className="my-5">
-        <h2 className="text-center mb-4">Contact Me</h2>
-        <form>
+      <section className="my-5 section-shell">
+        <h2 className="text-center mb-4">Let's Build Something Great</h2>
+        <form className="contact-form-glass">
           <div className="form-row">
             <div className="form-group col-md-6">
               <label htmlFor="firstName">First Name</label>
@@ -162,9 +173,11 @@ const Portfolio = () => {
           </div>
           <div className="form-group">
             <label htmlFor="message">Message</label>
-            <textarea className="form-control" ref={messageRef} id="message" rows="4" placeholder="Your Message" required></textarea>
+            <textarea className="form-control" ref={messageRef} id="message" rows="4" placeholder="Tell me about your project..." required />
           </div>
-          <button type="button" onClick={handleSubmit} className="btn btn-primary">Send Message</button>
+          <button type="button" onClick={handleSubmit} className="btn btn-primary contact-submit-btn">
+            {isSubmitting ? 'Sending...' : 'Send Message'}
+          </button>
         </form>
       </section>
     </div>

@@ -14,30 +14,31 @@ p{
 
 .Contact-section-main{
     width: 100%;
-    padding: 25px 0;
+    padding: 35px 0;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .wrapper-contact{
-    width: 30%;
+    width: 100%;
     position: relative;
     display: grid;
-    grid-gap: 50px;
+    grid-gap: 20px;
 }
 .contact-head-block{
-    background-color: #152a34;
-    padding: 25px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
+    background: linear-gradient(135deg, #112d65, #244e98);
+    padding: 24px;
+    border-radius: 16px;
     color: #ffa500;
     font-size: 32px;
+    box-shadow: 0 14px 30px rgba(21, 52, 119, 0.2);
 }
 .contact-head-block > .contact-head{
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
+    gap: 20px;
 }
 
 .head-section{
@@ -48,21 +49,30 @@ p{
 }
 
 .contact-container-block{
-    background-color: #8a8c8d87;
+    background: #ffffff;
     padding: 25px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
+    border-radius: 16px;
+    border: 1px solid #e8efff;
     color: #000000;
+    box-shadow: 0 14px 28px rgba(28, 59, 124, 0.11);
 }
 .contact-container-block > .contact-detail-wrapper{
     position: relative;
-    margin: 30px 0 !important;
+    margin: 22px 0 !important;
+    padding: 8px 4px;
+    border-radius: 10px;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.contact-container-block > .contact-detail-wrapper:hover{
+    transform: translateY(-3px);
+    background-color: #f8fbff;
 }
 .contact-detail-wrapper > .contact-icon{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    color: orange;
+    color: #3a62d7;
 
 }
 
@@ -73,12 +83,34 @@ p{
 
 .contact-detail-wrapper > .contact-type > .title{
     font-weight: bold;
-    color: #000000;
-    font-size: 22px;
+    color: #1d3f87;
+    font-size: 20px;
 }
 .contact-detail-wrapper > .contact-type > .value{
     font-weight: normal;
-    color: #000000;
-    font-size: 20px;
+    color: #3c4c68;
+    font-size: 17px;
+}
+
+.contact-detail-wrapper > .contact-type > .value > a{
+    color: #2457d7;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact-detail-wrapper > .contact-type > .value > a:hover{
+    text-decoration: underline;
+}
+
+@media (max-width: 768px){
+    .contact-head-block{
+        font-size: 24px;
+    }
+    .contact-detail-wrapper > .contact-type > .title{
+        font-size: 18px;
+    }
+    .contact-detail-wrapper > .contact-type > .value{
+        font-size: 15px;
+    }
 
 }
