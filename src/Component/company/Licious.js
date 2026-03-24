@@ -9,26 +9,36 @@ class Licious extends Component{
 
     render(){
         return (
-            <div class="card">
-                <h2><strong>Industry: </strong> Licious</h2>
-                <p><strong>Technologies Used:</strong> React.js, Javascript, Laravel, HTML, CSS</p>
-                <p><strong>Features Developed:-</strong></p>
+            <div className="card">
+                <h2><strong>Company: </strong> Licious</h2>
+                <p><strong>Industry:</strong> Food Tech / E-commerce</p>
+                <p><strong>Role:</strong> Frontend / Fullstack Engineer</p>
+                <p><strong>Timeline:</strong> Sep-2017 - Feb-2019</p>
+                <p><strong>Team Setup:</strong> Product Manager, Frontend Squad, Backend Squad, QA, Growth Team</p>
+                <p><strong>Technologies Used:</strong> React.js, JavaScript, Laravel, REST APIs, HTML, CSS, Payment Gateway Integrations</p>
+                <p><strong>Domain Ownership:</strong> Product browsing, checkout funnel, payment integration, and conversion-focused campaign modules</p>
+                <p><strong>Business Impact:</strong> Improved purchase journey reliability and reduced checkout friction for high-intent customers.</p>
+                <p><strong>Key Deliverables:</strong></p>
                 <ul>
                     <li>
-                        <b>Product Listing Page: </b>  
-                        <p>The product listing page should display detailed information about the product. Users should be able to view the product name, price, description, and other relevant details.</p>
+                        <b>Product Listing Experience:</b>
+                        <p>Built product listing modules with pricing, availability, SKU-level metadata, and category-driven discoverability for smoother browsing.</p>
                     </li>
                     <li>
-                        <b>Product Checkout Page: </b> 
-                        <p>The checkout page should allow users to review their selected products, enter their shipping and payment information, and complete the purchase process.</p> 
+                        <b>Checkout Flow:</b>
+                        <p>Developed checkout journey for cart review, address capture, and payment flow orchestration with improved UX consistency.</p>
                     </li>
                     <li>
-                        <b>Paytm Payment Gateway: </b>  
-                        <p>Integrate the Paytm payment gateway into the application to allow users to make payments using the Paytm platform. Use the Paytm provided SDK or API to generate the payment request and initiate the payment flow.</p>
+                        <b>Paytm Payment Gateway:</b>
+                        <p>Integrated gateway APIs for payment initiation, callbacks, and transaction state handling to improve payment success reliability.</p>
                     </li>
                     <li>
-                        <b>Coupons & Referral: </b>  
-                        <p>Implement a system for users to redeem coupons and refer friends to the platform, rewarding both the referrer and the referee. Allow admins to generate unique coupon codes with specific discounts or benefits</p>
+                        <b>Coupons & Referral Programs:</b>
+                        <p>Implemented campaign-ready coupon and referral modules with validation logic, reward handling, and admin-driven campaign management.</p>
+                    </li>
+                    <li>
+                        <b>Senior Engineering Contributions:</b>
+                        <p>Collaborated with growth and product teams on A/B experimentation inputs, participated in peer code reviews, and improved feature rollout quality.</p>
                     </li>
                 </ul>
             </div>

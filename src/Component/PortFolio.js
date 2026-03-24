@@ -25,18 +25,22 @@ const projects = [
   },
 ];
 
-const engagementModels = [
+const aiTooling = [
   {
-    title: 'Full-time Engineering',
-    description: 'Drive roadmap delivery with ownership of design, implementation, and production reliability.',
+    name: 'Cursor',
+    usage: 'AI-assisted coding, fast refactors, and context-aware implementation support.',
   },
   {
-    title: 'Consulting / Architecture',
-    description: 'Improve system quality through architecture reviews, performance tuning, and pragmatic engineering strategy.',
+    name: 'CodeRabbit',
+    usage: 'Automated PR review feedback for quality, edge cases, and maintainability improvements.',
   },
   {
-    title: 'Feature Acceleration',
-    description: 'Ship critical features quickly with strong code quality, clear communication, and measurable outcomes.',
+    name: 'Claude',
+    usage: 'Architecture brainstorming, technical writing, and deeper reasoning on complex modules.',
+  },
+  {
+    name: 'GitHub Copilot',
+    usage: 'Code acceleration for repetitive implementation and test scaffolding.',
   },
 ];
 
@@ -128,15 +132,13 @@ const Portfolio = () => {
       </section>
 
       <section className="my-5 section-shell">
-        <h2 className="text-center mb-4">Engagement Models</h2>
-        <div className="row">
-          {engagementModels.map((model) => (
-            <div className="col-md-4 mb-3" key={model.title}>
-              <div className="model-card">
-                <h5>{model.title}</h5>
-                <p>{model.description}</p>
-              </div>
-            </div>
+        <h2 className="text-center mb-4">AI Tooling in My Workflow</h2>
+        <div className="project-grid">
+          {aiTooling.map((tool) => (
+            <article className="model-card ai-tool-card" key={tool.name}>
+              <h5>{tool.name}</h5>
+              <p>{tool.usage}</p>
+            </article>
           ))}
         </div>
       </section>

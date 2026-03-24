@@ -9,21 +9,34 @@ class Vyapar extends Component{
 
     render(){
         return (
-            <div class="card">
-                <h2><strong>Industry: </strong> Vyapar App</h2>
-                <p><strong>Technologies Used:</strong> React.js, Nest.js, Next.js, Laravel, HTML, CSS</p>
-                <p><strong>Features Developed:-</strong></p>
+            <div className="card">
+                <h2><strong>Company: </strong> Simply Vyapar Apps Pvt Ltd</h2>
+                <p><strong>Industry:</strong> SMB FinTech / Accounting SaaS</p>
+                <p><strong>Role:</strong> Senior Fullstack Engineer</p>
+                <p><strong>Timeline:</strong> March-2019 - Present</p>
+                <p><strong>Team Setup:</strong> Product Manager, 2 Backend Engineers, 2 Frontend Engineers, QA, Support Ops</p>
+                <p><strong>Technologies Used:</strong> React.js, Next.js, NestJS, Node.js, Laravel, MySQL, Redis, AWS, Docker</p>
+                <p><strong>Domain Ownership:</strong> Support CRM flows, lead assignment automation, commissions lifecycle, reporting dashboards</p>
+                <p><strong>Business Impact:</strong> Reduced manual operations, improved support response times, and increased commission processing accuracy.</p>
+                <p><strong>Key Deliverables:</strong></p>
                 <ul>
                      <li>
-                        <b>Calling Support Internal Dashboard: </b>  
-                        <p>Integrate calling support into the dashboard to allow agents to make calls directly from the dashboard. Additionally, automate lead assignment based on predefined rules. Log call details (such as call duration, timestamp, and caller ID) in the dashboard for future reference. Provide users with access to their call history, including details of past calls made from the dashboard</p>
-                        <p>Define rules for automatically assigning leads to agents based on criteria such as lead source, location, or lead score.</p>
+                        <b>Calling Support Internal Dashboard:</b>
+                        <p>Integrated click-to-call workflows for support agents directly from the dashboard, with call metadata logging (duration, timestamp, caller details) and searchable call history.</p>
+                        <p>Implemented rule-based lead assignment by source, geography, and priority to reduce manual routing overhead.</p>
                     </li>
                     <li>
-                        <b>Distributor Commission: </b>  
-                        <p>Automate the process of calculating distributor commissions based on sales data and facilitate payment to distributors. Provide a reporting mechanism to view commission details and statements.</p>
-                        <p>Define a payment schedule (e.g., weekly, monthly) for distributing commissions to distributors</p>
-                        <p></p>
+                        <b>Distributor Commission Engine:</b>
+                        <p>Automated commission calculations based on sales slabs, partner rules, and settlement windows; added monthly statements and reconciliation reporting.</p>
+                        <p>Built scheduled settlement support (weekly/monthly) with audit-ready ledger references for finance operations.</p>
+                    </li>
+                    <li>
+                        <b>Architecture & Quality Improvements:</b>
+                        <p>Standardized API contracts between frontend and backend modules, introduced modular service boundaries, and improved release confidence via staged QA validation.</p>
+                    </li>
+                    <li>
+                        <b>Senior Engineering Contributions:</b>
+                        <p>Led code reviews, mentored junior developers, and partnered with product/support teams to prioritize high-impact roadmap items.</p>
                     </li>
                 </ul>
             </div>
