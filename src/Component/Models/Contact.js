@@ -17,9 +17,12 @@ class Contact extends Component{
                 <Col className="wrapper-contact" sm="12" md="8" lg="7">
                     <Row className="contact-head-block">
                         <Col className="contact-head" sm="12" md="12" lg="12">
-                            <i className="fa fa-2x fa-address-book addr-icon" aria-hidden="true"></i>
+                            <div className="contact-brand-logo-wrap">
+                                <img src="/images/Wallpapers/praveen.jpg" alt="Praveen Kumar Logo" className="contact-brand-logo" />
+                            </div>
                             <div className="head-section">
                                 <p>Let&apos;s Work Together</p>
+                                <span>Available for full-time and consulting opportunities</span>
                             </div>
 
                         </Col>
