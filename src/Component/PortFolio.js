@@ -5,7 +5,7 @@ import '../css/portfolio.css';
 
 const skillMatrix = [
   { title: 'Core Languages', skills: ['JavaScript (ES6+)', 'TypeScript', 'SQL', 'HTML5', 'CSS3'] },
-  { title: 'Frontend Engineering', skills: ['React.js', 'Next.js', 'Redux', 'Performance Optimization', 'Accessibility (a11y)'] },
+  { title: 'Frontend Engineering', skills: ['React.js', 'Next.js', 'Redux', 'Performance Optimization',"Search Engine Optimization"] },
   { title: 'Backend Engineering', skills: ['Node.js', 'NestJS', 'REST API Design', 'Authentication & Authorization', 'Microservices Basics'] },
   { title: 'Cloud & DevOps', skills: ['AWS', 'Docker', 'CI/CD Workflows', 'Monitoring & Logging', 'Infrastructure Awareness'] },
   { title: 'Data & Architecture', skills: ['MongoDB', 'MySQL', 'System Design Thinking', 'Caching Strategies', 'Scalable Backend Patterns'] },
