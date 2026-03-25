@@ -3,29 +3,24 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
-# Copy only package files first (better caching)
 COPY package*.json ./
 RUN npm install
 
-# Copy source and build
 COPY . .
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
+# Production stage (Next.js standalone server)
+FROM node:20-alpine AS runner
 
-# Remove default nginx content (important!)
-RUN rm -rf /usr/share/nginx/html/*
+WORKDIR /app
 
-# Copy build output
-COPY --from=build /app/out /usr/share/nginx/html
+# Next standalone output lives here after `next build`
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/.next/static ./.next/static
+COPY --from=build /app/public ./public
 
-# Copy custom nginx config (supports Next static routes)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Optional: reduce image size & remove unnecessary files
-RUN rm -rf /etc/nginx/conf.d/default.conf.bak
-
+# Keep container port at 80 to match existing ECS task port expectations.
+ENV PORT=80
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "server.js"]

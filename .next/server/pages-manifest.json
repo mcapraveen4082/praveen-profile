@@ -1,10 +1,5 @@
 {
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/githubprofile": "pages/githubprofile.js",
-  "/contactus": "pages/contactus.js",
-  "/company/vyapar": "pages/company/vyapar.js",
-  "/company/licious": "pages/company/licious.js"
+  "/_document": "pages/_document.js"
 }

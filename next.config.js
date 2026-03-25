@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Keep deployment compatible with the existing Docker+nginx flow.
-  // We generate a static site in `out/` and serve it via nginx (port 80).
-  output: 'export',
+  // Server-mode: enable a Node.js runtime (needed for /app/api/* route handlers).
+  // Using `standalone` keeps Docker images smaller and self-contained.
+  output: 'standalone',
   trailingSlash: true,
   images: {
     unoptimized: true,

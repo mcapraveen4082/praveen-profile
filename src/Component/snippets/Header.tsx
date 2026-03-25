@@ -6,11 +6,12 @@ const Header = () => {
   return (
     <div className="Head-section-main">
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="/">Praveen@info</Navbar.Brand>
+        <Navbar.Brand href="/">Praveen Portfolio</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/jobs">Jobs</Nav.Link>
             <Nav.Link href="/githubprofile">Github Profile</Nav.Link>
             <Nav.Link href="/contactus">Contact</Nav.Link>
             <NavDropdown title="Companies" id="basic-nav-dropdown">
