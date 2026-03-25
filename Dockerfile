@@ -18,9 +18,9 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy build output
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/out /usr/share/nginx/html
 
-# Copy custom nginx config (fixes 404 for React routes)
+# Copy custom nginx config (supports Next static routes)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Optional: reduce image size & remove unnecessary files

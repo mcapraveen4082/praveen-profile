@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/* Keep your existing CSS imports in `_app.js` for now.
+   This file mainly enables Tailwind + SCSS pipeline. */
+
