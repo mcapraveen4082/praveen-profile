@@ -14,7 +14,7 @@
     "redux": "^4.2.1"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "rm -rf .next && WATCHPACK_POLLING=true next dev",
     "build": "next build",
     "start": "next start",
     "test": "echo \"No tests configured\""

@@ -23,9 +23,9 @@ export async function fetchAdzunaJobs(opts?: {
   const what = opts?.what ?? "software engineer";
   const where = opts?.where ?? "remote";
 
-  const appId = process.env.ADZUNA_APP_ID;
-  const appKey = process.env.ADZUNA_API_KEY;
-  const country = process.env.ADZUNA_COUNTRY ?? "us";
+  const appId = "4939a9bb";
+  const appKey = "0786df649264cbeb65ffb0ddac4bfe0b";
+  const country = "in";
 
   if (!appId || !appKey) {
     throw new Error(

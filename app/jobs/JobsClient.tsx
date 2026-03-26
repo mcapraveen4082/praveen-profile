@@ -16,7 +16,16 @@ const TABS: { id: TabId; label: string }[] = [
 
 function remoteMatch(job: Job): boolean {
   const loc = (job.location ?? '').toLowerCase();
-  return loc.includes('remote') || loc.includes('worldwide');
+  return (
+    loc.includes('remote') ||
+    loc.includes('worldwide') ||
+    loc.includes('anywhere') ||
+    loc.includes('global') ||
+    loc.includes('americas') ||
+    loc.includes('europe') ||
+    loc.includes('asia') ||
+    loc.includes('oceania')
+  );
 }
 
 function JobCard({ job }: { job: Job }) {
@@ -71,8 +80,12 @@ function JobSkeletonCard() {
 
 export default function JobsClient() {
   const [activeTab, setActiveTab] = useState<TabId>('all');
-  const [remoteOnly, setRemoteOnly] = useState(false);
-  const [keyword, setKeyword] = useState('typescript react node');
+  const [keywordInput, setKeywordInput] = useState('typescript react node');
+  const [remoteOnlyInput, setRemoteOnlyInput] = useState(false);
+  const [appliedSearch, setAppliedSearch] = useState({
+    keyword: 'typescript react node',
+    remoteOnly: false,
+  });
 
   const [jobsBySource, setJobsBySource] = useState<Record<JobSource, Job[]>>({
     remotive: [],
@@ -82,34 +95,72 @@ export default function JobsClient() {
 
   const [errors, setErrors] = useState<Partial<Record<JobSource, string>>>({});
   const [loading, setLoading] = useState<Record<JobSource, boolean>>({
-    remotive: true,
-    adzuna: true,
-    usajobs: true,
+    remotive: false,
+    adzuna: false,
+    usajobs: false,
+  });
+  const [loadedSearchKeyBySource, setLoadedSearchKeyBySource] = useState<
+    Partial<Record<JobSource, string>>
+  >({
+    remotive: '',
+    adzuna: '',
+    usajobs: '',
   });
 
   useEffect(() => {
     let alive = true;
+    const searchKey = `${appliedSearch.keyword}::${appliedSearch.remoteOnly}`;
+
+    const sourcesToLoad: JobSource[] =
+      activeTab === 'all' ? ['remotive', 'adzuna', 'usajobs'] : [activeTab];
+
+    const pendingSources = sourcesToLoad.filter(
+      (source) => loadedSearchKeyBySource[source] !== searchKey,
+    );
+
+    if (pendingSources.length === 0) {
+      return () => {
+        alive = false;
+      };
+    }
 
     async function loadVendor(source: JobSource) {
       const endpoint =
         source === 'remotive'
-          ? `/api/jobs/remotive?keyword=${encodeURIComponent(keyword)}`
+          ? `/api/jobs/remotive?keyword=${encodeURIComponent(appliedSearch.keyword)}&remoteOnly=${appliedSearch.remoteOnly}`
           : source === 'adzuna'
-            ? `/api/jobs/adzuna?keyword=${encodeURIComponent(keyword)}`
-            : `/api/jobs/usajobs?keyword=${encodeURIComponent(keyword)}`;
+            ? `/api/jobs/adzuna?keyword=${encodeURIComponent(appliedSearch.keyword)}&remoteOnly=${appliedSearch.remoteOnly}`
+            : `/api/jobs/usajobs?keyword=${encodeURIComponent(appliedSearch.keyword)}&remoteOnly=${appliedSearch.remoteOnly}`;
 
       try {
         setLoading((prev) => ({ ...prev, [source]: true }));
         setErrors((prev) => ({ ...prev, [source]: '' }));
         const res = await fetch(endpoint, { method: 'GET' });
-        const json = (await res.json()) as { jobs?: Job[]; error?: string };
+        const contentType = res.headers.get('content-type') ?? '';
+        let json: { jobs?: Job[]; error?: string };
+
+        if (contentType.includes('application/json')) {
+          json = (await res.json()) as { jobs?: Job[]; error?: string };
+        } else {
+          const rawText = await res.text();
+          throw new Error(
+            `${source} returned non-JSON response (${res.status}). ${
+              rawText?.slice(0, 120) || 'No response body'
+            }`,
+          );
+        }
         if (!alive) return;
+
+        if (!res.ok) {
+          throw new Error(json.error || `${source} request failed with status ${res.status}`);
+        }
 
         if (json.error) {
           setErrors((prev) => ({ ...prev, [source]: json.error ?? 'Failed to load jobs' }));
         }
 
         setJobsBySource((prev) => ({ ...prev, [source]: Array.isArray(json.jobs) ? json.jobs : [] }));
+        setLoadedSearchKeyBySource((prev) => ({ ...prev, [source]: searchKey }));
       } catch (e) {
         if (!alive) return;
         const message = e instanceof Error ? e.message : 'Failed to load jobs';
@@ -121,36 +172,36 @@ export default function JobsClient() {
       }
     }
 
-    Promise.allSettled([
-      loadVendor('remotive'),
-      loadVendor('adzuna'),
-      loadVendor('usajobs'),
-    ]);
+    Promise.allSettled(pendingSources.map((source) => loadVendor(source)));
 
     return () => {
       alive = false;
     };
-  }, [keyword]);
+  }, [activeTab, appliedSearch, loadedSearchKeyBySource]);
 
   const allJobs = useMemo(() => {
     const merged = Object.values(jobsBySource).flat();
     const deduped = dedupeJobs(merged);
-    const filtered = remoteOnly ? deduped.filter(remoteMatch) : deduped;
+    const filtered = appliedSearch.remoteOnly ? deduped.filter(remoteMatch) : deduped;
 
     // Best-effort "newest first": sort by id descending (vendor-specific ids).
     return filtered.sort((a, b) => b.id.localeCompare(a.id));
-  }, [jobsBySource, remoteOnly]);
+  }, [jobsBySource, appliedSearch.remoteOnly]);
 
   const visibleJobs = useMemo(() => {
     if (activeTab === 'all') return allJobs;
     const jobs = jobsBySource[activeTab];
-    return remoteOnly ? jobs.filter(remoteMatch) : jobs;
-  }, [activeTab, allJobs, jobsBySource, remoteOnly]);
+    return appliedSearch.remoteOnly ? jobs.filter(remoteMatch) : jobs;
+  }, [activeTab, allJobs, jobsBySource, appliedSearch.remoteOnly]);
 
   const isLoadingForTab = useMemo(() => {
     if (activeTab === 'all') return loading.remotive || loading.adzuna || loading.usajobs;
     return loading[activeTab];
   }, [activeTab, loading]);
+
+  const hasAnyVendorError = Boolean(errors.remotive || errors.adzuna || errors.usajobs);
+  const hasOnlyNonRemotiveError =
+    !errors.remotive && Boolean(errors.adzuna || errors.usajobs);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 py-10">
@@ -167,8 +218,8 @@ export default function JobsClient() {
             <label className="flex items-center gap-3 text-sm font-semibold text-slate-200 select-none">
               <input
                 type="checkbox"
-                checked={remoteOnly}
-                onChange={(e) => setRemoteOnly(e.target.checked)}
+                checked={remoteOnlyInput}
+                onChange={(e) => setRemoteOnlyInput(e.target.checked)}
                 className="h-4 w-4 accent-indigo-600"
               />
               Remote only
@@ -182,11 +233,23 @@ export default function JobsClient() {
             <input
               id="job-keyword"
               type="text"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
+              value={keywordInput}
+              onChange={(e) => setKeywordInput(e.target.value)}
               placeholder="e.g. typescript react node"
               className="w-full sm:max-w-xl rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-100 outline-none focus:ring-2 focus:ring-indigo-500"
             />
+            <button
+              type="button"
+              onClick={() =>
+                setAppliedSearch({
+                  keyword: keywordInput.trim() || 'software engineer',
+                  remoteOnly: remoteOnlyInput,
+                })
+              }
+              className="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-bold text-white hover:bg-indigo-700 transition-colors"
+            >
+              Search
+            </button>
           </div>
 
           <div className="mt-6 flex flex-wrap gap-2">
@@ -226,8 +289,23 @@ export default function JobsClient() {
             <div className="mt-8 rounded-3xl border border-white/10 bg-white/5 px-6 py-10 text-center">
               <p className="text-sm font-semibold text-slate-300">No jobs found.</p>
               <p className="mt-2 text-xs text-slate-400">
-                Try switching vendors or disabling “Remote only”.
+                Try changing skills/keywords and click Search.
               </p>
+              {errors.remotive ? (
+                <p className="mt-2 text-xs text-rose-300">
+                  Remotive is currently unavailable. Please try again in a moment.
+                </p>
+              ) : null}
+              {hasOnlyNonRemotiveError ? (
+                <p className="mt-2 text-xs text-amber-300">
+                  Adzuna/USAJobs are unavailable (likely missing API keys). Remotive should still work.
+                </p>
+              ) : null}
+              {hasAnyVendorError && !hasOnlyNonRemotiveError && !errors.remotive ? (
+                <p className="mt-2 text-xs text-rose-300">
+                  Some vendors are unavailable right now. Try another keyword and Search again.
+                </p>
+              ) : null}
             </div>
           ) : (
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

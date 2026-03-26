@@ -13,6 +13,8 @@
 
 # Next.js build output
 .next/
+out/
+tsconfig.tsbuildinfo
 
 
 # misc

@@ -6,10 +6,11 @@ export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
     const keyword = url.searchParams.get('keyword') ?? 'software engineer';
+    const remoteOnly = (url.searchParams.get('remoteOnly') ?? 'true') === 'true';
     const jobs = await fetchUSAJobs({
       limit: 24,
       keyword,
-      remoteOnly: true,
+      remoteOnly,
     });
     return NextResponse.json({ jobs });
   } catch (err) {

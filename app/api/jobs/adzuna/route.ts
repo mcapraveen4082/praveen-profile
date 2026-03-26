@@ -6,7 +6,8 @@ export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
     const keyword = url.searchParams.get('keyword') ?? 'software engineer';
-    const jobs = await fetchAdzunaJobs({ limit: 24, where: 'remote', what: keyword });
+    const remoteOnly = (url.searchParams.get('remoteOnly') ?? 'true') === 'true';
+    const jobs = await fetchAdzunaJobs({ limit: 24, where: remoteOnly ? 'remote' : '', what: keyword });
     return NextResponse.json({ jobs });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Failed to load Adzuna jobs';
