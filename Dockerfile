@@ -9,18 +9,30 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Production stage (Next.js standalone server)
+# Production stage (Next.js standalone server + Nginx SSL reverse proxy)
 FROM node:20-alpine AS runner
 
 WORKDIR /app
+
+RUN apk add --no-cache nginx openssl
 
 # Next standalone output lives here after `next build`
 COPY --from=build /app/.next/standalone ./
 COPY --from=build /app/.next/static ./.next/static
 COPY --from=build /app/public ./public
 
-# Keep container port at 80 to match existing ECS task port expectations.
-ENV PORT=80
-EXPOSE 80
+# Nginx SSL reverse proxy config + startup script.
+COPY nginx.conf /etc/nginx/http.d/default.conf
+COPY ssl/fullchain.pem /etc/nginx/ssl/fullchain.pem
+COPY ssl/privkey.pem /etc/nginx/ssl/privkey.pem
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh && mkdir -p /run/nginx /etc/nginx/ssl
 
-CMD ["node", "server.js"]
+# Optional mount path for real certs (overrides copied self-signed certs):
+# - /etc/nginx/ssl/fullchain.pem
+# - /etc/nginx/ssl/privkey.pem
+
+EXPOSE 80
+EXPOSE 443
+
+CMD ["/docker-entrypoint.sh"]

@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import type { Job, JobSource } from '../../src/lib/jobs/types';
-import { badgeColor, dedupeJobs, stripHtml, trimText } from '../../src/lib/jobs/utils';
+import { badgeColor, dedupeJobs, trimText } from '../../src/lib/jobs/utils';
 
 type TabId = 'all' | JobSource;
 
@@ -15,6 +15,9 @@ const TABS: { id: TabId; label: string }[] = [
 ];
 
 function remoteMatch(job: Job): boolean {
+  // Remotive jobs are remote-first; their location field may not literally contain "remote".
+  if (job.source === 'remotive') return true;
+
   const loc = (job.location ?? '').toLowerCase();
   return (
     loc.includes('remote') ||
@@ -28,8 +31,21 @@ function remoteMatch(job: Job): boolean {
   );
 }
 
+function ensureReactNodeBase(input: string): string {
+  const keyword = input.trim();
+  const lower = keyword.toLowerCase();
+
+  const parts = keyword ? keyword.split(/\s+/).filter(Boolean) : [];
+
+  if (!/react/.test(lower)) parts.push('reactjs');
+  if (!/node/.test(lower)) parts.push('nodejs');
+  if (!/developer|dev(eloper)?/.test(lower)) parts.push('developer');
+
+  return parts.join(' ');
+}
+
 function JobCard({ job }: { job: Job }) {
-  const description = trimText(stripHtml(job.description), 160);
+  const description = trimText(job.description, 160);
 
   return (
     <article className="rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm transition-shadow hover:shadow-md">
@@ -80,10 +96,10 @@ function JobSkeletonCard() {
 
 export default function JobsClient() {
   const [activeTab, setActiveTab] = useState<TabId>('all');
-  const [keywordInput, setKeywordInput] = useState('typescript react node');
+  const [keywordInput, setKeywordInput] = useState('reactjs nodejs developer');
   const [remoteOnlyInput, setRemoteOnlyInput] = useState(false);
   const [appliedSearch, setAppliedSearch] = useState({
-    keyword: 'typescript react node',
+    keyword: 'reactjs nodejs developer',
     remoteOnly: false,
   });
 
@@ -95,34 +111,16 @@ export default function JobsClient() {
 
   const [errors, setErrors] = useState<Partial<Record<JobSource, string>>>({});
   const [loading, setLoading] = useState<Record<JobSource, boolean>>({
-    remotive: false,
-    adzuna: false,
-    usajobs: false,
-  });
-  const [loadedSearchKeyBySource, setLoadedSearchKeyBySource] = useState<
-    Partial<Record<JobSource, string>>
-  >({
-    remotive: '',
-    adzuna: '',
-    usajobs: '',
+    remotive: true,
+    adzuna: true,
+    usajobs: true,
   });
 
   useEffect(() => {
     let alive = true;
-    const searchKey = `${appliedSearch.keyword}::${appliedSearch.remoteOnly}`;
 
     const sourcesToLoad: JobSource[] =
       activeTab === 'all' ? ['remotive', 'adzuna', 'usajobs'] : [activeTab];
-
-    const pendingSources = sourcesToLoad.filter(
-      (source) => loadedSearchKeyBySource[source] !== searchKey,
-    );
-
-    if (pendingSources.length === 0) {
-      return () => {
-        alive = false;
-      };
-    }
 
     async function loadVendor(source: JobSource) {
       const endpoint =
@@ -160,7 +158,6 @@ export default function JobsClient() {
         }
 
         setJobsBySource((prev) => ({ ...prev, [source]: Array.isArray(json.jobs) ? json.jobs : [] }));
-        setLoadedSearchKeyBySource((prev) => ({ ...prev, [source]: searchKey }));
       } catch (e) {
         if (!alive) return;
         const message = e instanceof Error ? e.message : 'Failed to load jobs';
@@ -172,12 +169,12 @@ export default function JobsClient() {
       }
     }
 
-    Promise.allSettled(pendingSources.map((source) => loadVendor(source)));
+    Promise.allSettled(sourcesToLoad.map((source) => loadVendor(source)));
 
     return () => {
       alive = false;
     };
-  }, [activeTab, appliedSearch, loadedSearchKeyBySource]);
+  }, [activeTab, appliedSearch]);
 
   const allJobs = useMemo(() => {
     const merged = Object.values(jobsBySource).flat();
@@ -204,7 +201,7 @@ export default function JobsClient() {
     !errors.remotive && Boolean(errors.adzuna || errors.usajobs);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 py-10">
+    <div className="min-h-screen bg-transparent text-slate-100 py-10">
       <div className="mx-auto max-w-6xl px-4">
         <div className="rounded-3xl bg-white/5 border border-white/10 p-6 sm:p-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -235,14 +232,14 @@ export default function JobsClient() {
               type="text"
               value={keywordInput}
               onChange={(e) => setKeywordInput(e.target.value)}
-              placeholder="e.g. typescript react node"
+              placeholder="e.g. reactjs nodejs developer (or add extra skills)"
               className="w-full sm:max-w-xl rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-100 outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <button
               type="button"
               onClick={() =>
                 setAppliedSearch({
-                  keyword: keywordInput.trim() || 'software engineer',
+                  keyword: ensureReactNodeBase(keywordInput || 'reactjs nodejs developer'),
                   remoteOnly: remoteOnlyInput,
                 })
               }

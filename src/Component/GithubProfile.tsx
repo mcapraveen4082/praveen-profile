@@ -76,7 +76,7 @@ class GithubProfile extends Component<ReduxProps, GithubProfileState> {
 
   render() {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 py-10">
+      <div className="min-h-screen bg-transparent text-slate-100 py-10">
         <div className="mx-auto max-w-6xl px-4">
           {!this.state.loading ? (
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-[320px_1fr]">

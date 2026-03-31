@@ -14,7 +14,11 @@ export async function withTTLCache<T>(key: string, ttlMs: number, loader: () => 
   }
 
   const data = await loader();
-  memoryCache.set(key, { expiresAt: now + ttlMs, data });
+  // Don't cache empty arrays; job providers often return 0 temporarily for narrow queries,
+  // and caching "no results" makes subsequent keyword changes look broken.
+  if (!(Array.isArray(data) && data.length === 0)) {
+    memoryCache.set(key, { expiresAt: now + ttlMs, data });
+  }
   return data;
 }
 

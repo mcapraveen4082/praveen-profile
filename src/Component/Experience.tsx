@@ -25,7 +25,7 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <div className="min-h-[60vh] bg-slate-950 py-12">
+    <div className="min-h-[60vh] bg-transparent py-12">
       <div className="mx-auto max-w-6xl px-4">
         <div className="rounded-3xl bg-white/90 border border-white/20 shadow-sm p-6 sm:p-10">
           <h2 className="text-center text-3xl font-extrabold text-slate-900">Professional Experience</h2>

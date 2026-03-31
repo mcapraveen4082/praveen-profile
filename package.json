@@ -14,7 +14,8 @@
     "redux": "^4.2.1"
   },
   "scripts": {
-    "dev": "rm -rf .next && WATCHPACK_POLLING=true next dev",
+    "dev": "rm -rf .next && WATCHPACK_POLLING=true next dev -p 3021",
+    "dev:reset": "node scripts/dev-reset.mjs",
     "build": "next build",
     "start": "next start",
     "test": "echo \"No tests configured\""
