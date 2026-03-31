@@ -30,7 +30,7 @@ RUN chmod +x /docker-entrypoint.sh && mkdir -p /run/nginx /etc/nginx/ssl
 
 # Optional mount path for real certs (overrides copied self-signed certs):
 # - /etc/nginx/ssl/fullchain.pem
-# - /etc/nginx/ssl/privkey.pem
+# - /etc/nginx/ssl/privkey.pem check
 
 EXPOSE 80
 EXPOSE 443
