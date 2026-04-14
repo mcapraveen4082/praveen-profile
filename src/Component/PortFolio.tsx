@@ -6,7 +6,7 @@ const skillMatrix = [
   { title: 'Backend Engineering', skills: ['Node.js', 'NestJS', 'REST API Design', 'Authentication & Authorization', 'Microservices Basics'] },
   {
     title: 'Cloud & DevOps',
-    skills: ['AWS', 'Docker', 'CI/CD Workflows', 'GitHub Actions', 'Monitoring & Logging', 'Infrastructure Awareness'],
+    skills: ['AWS', 'Railway', 'Docker', 'CI/CD Workflows', 'GitHub Actions', 'Monitoring & Logging', 'Infrastructure Awareness'],
   },
   { title: 'Data & Architecture', skills: ['MongoDB', 'MySQL', 'System Design Thinking', 'Caching Strategies', 'Scalable Backend Patterns'] },
   { title: 'Senior Engineering Skills', skills: ['Code Reviews', 'Mentoring', 'Cross-functional Collaboration', 'Production Incident Ownership', 'Technical Documentation'] },
