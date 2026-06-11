@@ -1,0 +1,10 @@
+name = "praveen-profile"
+main = ".open-next/worker.js"
+compatibility_date = "2026-06-11"
+
+[assets]
+directory = ".open-next/assets"
+
+[[services]]
+binding = "WORKER_SELF_REFERENCE"
+service = "praveen-profile"
